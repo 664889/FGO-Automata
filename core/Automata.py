@@ -96,7 +96,9 @@ class Automata():
         """
         while not util.standby(util.get_sh(self.shifts), crds.IMAGE["attack"]):
             time.sleep(0.2)
+        time.sleep(0.5)
         self.tap(crds.SERVANT_SKILLS[skill-1], 5, 5)
+        self.tap((1320, 300), 100, 50)
         time.sleep(1)
         if tar != 0:
             self.select_servant(tar)
@@ -378,7 +380,7 @@ class Automata():
             time.sleep(1)
 
     # after-battle related
-    def finish_battle(self, cont=True):
+    def finish_battle(self, cont=False):
         """ Finish Battle
         In `Free Quest`, there will be a continue battle option
 
@@ -396,10 +398,15 @@ class Automata():
         time.sleep(0.2)
         x = util.get_crd(util.get_sh(self.shifts), crds.IMAGE["item"])
         self.tap(x[0])
-        if cont:
+        if not cont:
             time.sleep(0.5)
             self.tap((650, 850))    # tap `close` btn
         print("[INFO] Battle Finished.")
+
+    def tap_continue(self, count = 0):
+        time.sleep(0.5)
+        self.tap((1270, 850))    # tap `continue` btn
+        print("[INFO] Battle {} Finished. Continue".format(count))
 
     # FLAWED
     def is_finished(self) -> bool:
